@@ -26,10 +26,19 @@ public class Main {
 			statement.execute("CREATE TABLE IF NOT EXISTS " + TABLE_KONTAKT + "( " + COLUMN_NAME + " TEXT, "
 			                    + COLUMN_PHONE + " INTEGER, " + COLUMN_EMAIL + " TEXT)"); // In Konsole noch ein Semicolon nach schließender SQL-Klamme
 
-			// create contact
+			// C - Create
 			createContact(statement, "Christian", 123456, "Christian@gmail.com");
 			createContact(statement, "Chris", 152123456, "Chris@web.de");
-			
+
+			// R - Read
+			readContact(statement);
+
+			// U - Update
+			updateContact(statement, "christian", "Hans-Uwe");
+
+			// D - Delete
+			deleteContact(statement, "hans-Uwe");
+
 			statement.close();
 			connection.close();
 		} catch (SQLException e) {
@@ -56,16 +65,26 @@ public class Main {
 
 
     
- private static void readContact() {
+ private static void readContact(Statement statement) throws SQLException {
+    	ResultSet resultSet = statement.executeQuery("SELECT * FROM " + TABLE_KONTAKT);
+
+    	while(resultSet.next()) {
+			System.out.println(resultSet.getString(COLUMN_NAME));
+			System.out.println(resultSet.getInt(COLUMN_PHONE));
+			System.out.println(resultSet.getString(COLUMN_EMAIL));
+		}
     	
     }
  
- private static void updateContact() {
- 	
+ private static void updateContact(Statement statement, String currentName, String newName) throws SQLException {
+ 	statement.execute("UPDATE " + TABLE_KONTAKT
+	                    + " SET " + COLUMN_NAME + " = '" + newName + "'"
+			            +  "WHERE " + COLUMN_NAME + " = '" + currentName + "'" + " COLLATE NOCASE ");
  }
  
- private static void deleteContact() {
- 	
+ private static void deleteContact(Statement statement, String name) throws SQLException {
+ 	statement.execute("DELETE FROM " + TABLE_KONTAKT + " WHERE "
+	                  + COLUMN_NAME + " = '" + name + "'" + " COLLATE  NOCASE");
  }
  
 }

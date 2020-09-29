@@ -3,7 +3,7 @@ package test;
 import java.sql.*;
 
 public class Main {
-	
+	// DB
 	public static final String DB_NAME = "kontakte.de";
 	// Falls DB noch nicht exisitiert, wird sie dort erstellt
 	public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Repositories\\DatabaseCourse\\DatabaseTest\\src\\test\\" + DB_NAME;

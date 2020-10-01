@@ -29,4 +29,65 @@ public class DBStatement {
             return false;
         }
     }
+
+                    // create table -> CREATE
+    private final String TABLE_USER = "User";
+
+    private final String COLUMN_ID = "ID";
+    private final String COLUMN_NAME = "Name";
+    private final String COLUMN_EMAIL = "Email";
+    private final String COLUMN_TELNUMBER = "Tel_Number";
+    private final String COLUMN_COUNTRY = "Country";
+    private final String COLUMN_DATE = "Registration_Date";
+
+    public void createTable() throws SQLException {
+        String createTable = "CREATE TABLE IF NOT EXISTS " + TABLE_USER
+                + "( "
+                    + COLUMN_ID + " INTEGER PRIMARY KEY, "
+                    + COLUMN_NAME + " TEXT NOT NULL, "
+                    + COLUMN_EMAIL + " TEXT UNIQUE NOT NULL, "
+                    + COLUMN_TELNUMBER + " TEXT NULL, " // User does not need to provide his phone number
+                    + COLUMN_COUNTRY + " TEXT NOT NULL, "
+                    + COLUMN_DATE + " TEXT NULL "
+                + ")";
+
+        try {
+            connection = dbConnection.getConnection();
+            statement = connection.createStatement();
+            if(statement != null) {
+                statement.execute(createTable);
+            }
+
+        } finally {
+            statement.close(); // saves ressources
+            /*
+     -> order important: closing statement before closing connection, otherwise
+        connection is gone and closing statement would not work anymore without connection.
+             */
+            connection.close(); // saves ressources
+        }
+
+    }
+
+                // insert values into table i.e. into columns
+    public void insertData() throws SQLException {
+        String insertData = "INSERT INTO " + TABLE_USER + " VALUES "
+                + "(NULL, 'Chris', 'chris@mail.de', '0152/43245692', 'Germany', "
+                + "DATETIME('now', 'localtime'))";
+
+        try {
+            connection = dbConnection.getConnection();
+            statement = connection.createStatement();
+            if(statement != null) {
+                statement.execute(insertData);
+            }
+        } finally {
+            statement.close();
+            connection.close();
+        }
+
+    }
+
+
+
 }

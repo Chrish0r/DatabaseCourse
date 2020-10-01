@@ -18,5 +18,20 @@ public class Main {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+        // starting process of creating a table by calling required functionality
+        try {
+            dbStatement.createTable();
+            System.out.println("SUCCESS: table created...");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        // starting process of inserting values into a table
+        try {
+            dbStatement.insertData();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

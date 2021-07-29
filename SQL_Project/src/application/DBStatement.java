@@ -72,7 +72,7 @@ public class DBStatement {
                 // insert values into table i.e. into columns
     public void insertData() throws SQLException {
         String insertData = "INSERT INTO " + TABLE_USER + " VALUES "
-                + "(NULL, 'Chris', 'chris@mail.de', '0152/43245692', 'Germany', "
+                + "(NULL, 'Chris', 'chrissa@mail.de', '0152/43245692', 'Germany', "
                 + "DATETIME('now', 'localtime'))";
 
         try {
